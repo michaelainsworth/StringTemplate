@@ -1,0 +1,22 @@
+#pragma once
+#ifndef STRINGTEMPLATE_COMMON_HPP
+#define STRINGTEMPLATE_COMMON_HPP
+
+#include <vector>
+
+#define STRINGTEMPLATE_NAMESPACE       StringTemplate
+#define STRINGTEMPLATE_NAMESPACE_BEGIN namespace STRINGTEMPLATE_NAMESPACE {
+#define STRINGTEMPLATE_NAMESPACE_END   }
+
+STRINGTEMPLATE_NAMESPACE_BEGIN
+
+class Block;
+class BlockReference;
+class Node;
+class Symbol;
+class Text;
+
+STRINGTEMPLATE_NAMESPACE_END
+
+#endif // #ifndef STRINGTEMPLATE_COMMON_HPP
+

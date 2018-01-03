@@ -1,0 +1,19 @@
+" Compile 
+function! s:Compile()
+    let l:old = &l:makeprg
+    let &l:makeprg = 'script/make.sh'
+    make
+    let &l:makeprg = l:old
+endfunction
+
+" Compile
+nnoremap <leader>r :call <SID>Compile()<cr>
+
+" Generate #includes
+function! s:GenerateIncludes()
+    r !cd library && find StringTemplate -type f -name '*.hpp' | sort -u | sed -e 's/^/\#include </g' -e 's/$/>/g'
+endfunction
+
+" Generate #includes
+nnoremap <leader>i<leader>i :call <SID>GenerateIncludes()<cr>
+

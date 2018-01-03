@@ -1,0 +1,7 @@
+#include <StringTemplate/Node.hpp>
+
+STRINGTEMPLATE_NAMESPACE_BEGIN
+
+Node::~Node() {}
+
+STRINGTEMPLATE_NAMESPACE_END

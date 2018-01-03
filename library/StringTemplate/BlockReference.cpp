@@ -1,0 +1,146 @@
+#include <StringTemplate/BlockReference.hpp>
+#include <algorithm>
+#include <StringTemplate/Block.hpp>
+
+STRINGTEMPLATE_NAMESPACE_BEGIN
+
+BlockReference::BlockReference(Block* block)
+    : block_(block)
+{}
+
+void BlockReference::addText(const String& value)
+{
+    if (block_)
+    {
+        block_->addText(value);
+    }
+}
+
+void BlockReference::addSymbol(const String& name)
+{
+    if (block_)
+    {
+        block_->addSymbol(name);
+    }
+}
+
+BlockReference BlockReference::addBlock(const String& name)
+{
+    if (block_)
+    {
+        auto& other = block_->addBlock(name);
+        return BlockReference(&other);
+    }
+
+    return BlockReference(nullptr);
+}
+
+BlockReference BlockReference::block(const String& name)
+{
+    if (block_)
+    {
+        auto other = block_->block(name);
+        return BlockReference(other);
+    }
+
+    return BlockReference(nullptr);
+}
+
+void BlockReference::set(const String& name, const String& value)
+{
+    if (block_)
+    {
+        block_->set(name, value);
+    }
+}
+
+bool BlockReference::has(const String& name)
+{
+    if (block_)
+    {
+        return block_->has(name);
+    }
+
+    return false;
+}
+
+String BlockReference::get(const String& name)
+{
+    if (block_)
+    {
+        return block_->get(name);
+    }
+
+    return "";
+}
+
+void BlockReference::enable()
+{
+    if (block_)
+    {
+        block_->enable();
+    }
+}
+
+void BlockReference::disable()
+{
+    if (block_)
+    {
+        block_->disable();
+    }
+}
+
+BlockReference BlockReference::duplicate()
+{
+    if (block_)
+    {
+        auto& other = block_->duplicate();
+        return BlockReference(&other);
+    }
+
+    return BlockReference(nullptr);
+}
+
+BlockReference BlockReference::repeat(unsigned count)
+{
+    if (block_)
+    {
+        for (unsigned i = 1; i < count; ++i)
+        {
+            duplicate();
+        }
+    }
+
+    return *this;
+}
+
+BlockReference BlockReference::next()
+{
+    if (!block_)
+    {
+        return BlockReference(nullptr);
+    }
+
+    auto& pc = block_->parent_->children_;
+    auto begin = pc.begin(), end = pc.end();
+    auto it = std::find(begin, end, block_);
+    if (it == end)
+    {
+        return BlockReference(nullptr);
+    }
+
+    ++it;
+    for (; it != end; ++it)
+    {
+        auto test = dynamic_cast<Block*>(*it);
+        if (test && test->name_ == block_->name_)
+        {
+            return BlockReference(test);
+        }
+    }
+
+    return BlockReference(nullptr);
+}
+
+STRINGTEMPLATE_NAMESPACE_END
+
