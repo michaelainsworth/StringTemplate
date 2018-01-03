@@ -46,6 +46,13 @@ TokenVector Tokenizer::tokenize(const String& content)
                 {
                     found = true;
                     ++i;
+
+                    if (type != SymbolType && i < s - 1 && ('\r' == content[i + 1] || '\n' ==
+                                content[i + 1]))
+                    {
+                        ++i;
+                    }
+
                     break;
                 }
                 else

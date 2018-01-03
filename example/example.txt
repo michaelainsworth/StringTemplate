@@ -1,0 +1,10 @@
+{{#person}}
+First name: {{firstName}}
+Last name: {{lastName}}
+{{#isAllowedToDrive}}
+Drive away.
+{{/isAllowedToDrive}}
+{{#isNotAllowedToDrive}}
+Ride a bike.
+{{/isNotAllowedToDrive}}
+{{/person}}
