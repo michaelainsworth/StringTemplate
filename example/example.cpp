@@ -27,56 +27,52 @@ PersonVector getPeople()
     return people;
 }
 
-Template getTemplate()
-{
-    Template tpl;
-    auto tplPerson = tpl.addBlock("person");
-    tplPerson.addText("First name: ");
-    tplPerson.addSymbol("firstName");
-    tplPerson.addText("\n");
-    tplPerson.addText("Last name: ");
-    tplPerson.addSymbol("lastName");
-    tplPerson.addText("\n");
-    auto tplDrive = tplPerson.addBlock("isAllowedToDrive");
-    tplDrive.addText("Drive away.\n");
-
-    auto tplNoDrive = tplPerson.addBlock("isNotAllowedToDrive");
-    tplNoDrive.addText("Ride a bike.\n");
-
-    tplPerson.addText("\n");
-    return tpl;
-}
-
 int main(int argc, const char**argv)
 {
-    auto people = getPeople();
-    auto tpl = getTemplate();
-
-    auto tplPerson = tpl.block("person").repeat(people.size());
-    for (auto person : people)
+    try
     {
-        tplPerson.set("firstName", person.firstName);
-        tplPerson.set("lastName", person.lastName);
-
-        auto tplDrive = tplPerson.block("isAllowedToDrive");
-        auto tplNoDrive = tplPerson.block("isNotAllowedToDrive");
-        
-        if (person.allowedToDrive)
+        if (argc != 2)
         {
-            tplDrive.enable();
-            tplNoDrive.disable();
-        }
-        else
-        {
-            tplDrive.disable();
-            tplNoDrive.enable();
+            throw std::runtime_error
+            (
+                "You must supply a filename as argument 2."
+            );
         }
 
-        tplPerson = tplPerson.next();
+        auto people = getPeople();
+        Template tpl(argv[1]);
+
+        auto tplPerson = tpl.block("person").repeat(people.size());
+        for (auto person : people)
+        {
+            tplPerson.set("firstName", person.firstName);
+            tplPerson.set("lastName", person.lastName);
+
+            auto tplDrive = tplPerson.block("isAllowedToDrive");
+            auto tplNoDrive = tplPerson.block("isNotAllowedToDrive");
+            
+            if (person.allowedToDrive)
+            {
+                tplDrive.enable();
+                tplNoDrive.disable();
+            }
+            else
+            {
+                tplDrive.disable();
+                tplNoDrive.enable();
+            }
+
+            tplPerson = tplPerson.next();
+        }
+
+        tpl.render(std::cout);
+
+        return 0;
     }
-
-    tpl.render(std::cout);
-
-    return 0;
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+        return 1;
+    }
 }
 

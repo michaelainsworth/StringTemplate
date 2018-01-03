@@ -186,5 +186,10 @@ void Block::disable()
     enabled_ = false;
 }
 
+String Block::name() const
+{
+    return name_;
+}
+
 STRINGTEMPLATE_NAMESPACE_END
 

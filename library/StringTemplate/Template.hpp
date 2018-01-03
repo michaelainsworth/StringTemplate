@@ -14,7 +14,7 @@ class Template
 {
 public:
 
-    Template();
+    Template(const String& filename);
     ~Template();
 
     void render(std::ostream& os);

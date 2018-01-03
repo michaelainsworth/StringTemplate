@@ -6,10 +6,13 @@
 #include <StringTemplate/BlockReference.hpp>
 #include <StringTemplate/Common.hpp>
 #include <StringTemplate/Node.hpp>
+#include <StringTemplate/Parser.hpp>
 #include <StringTemplate/String.hpp>
 #include <StringTemplate/StringTemplate.hpp>
 #include <StringTemplate/Symbol.hpp>
 #include <StringTemplate/Template.hpp>
 #include <StringTemplate/Text.hpp>
+#include <StringTemplate/Token.hpp>
+#include <StringTemplate/Tokenizer.hpp>
 
 #endif // #ifndef STRINGTEMPLATE_STRINGTEMPLATE_HPP

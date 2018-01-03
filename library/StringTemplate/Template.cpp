@@ -1,12 +1,62 @@
+#include <boost/format.hpp>
+#include <fstream>
 #include <iostream>
 #include <StringTemplate/Block.hpp>
+#include <StringTemplate/Parser.hpp>
 #include <StringTemplate/Template.hpp>
+
+using boost::format;
 
 STRINGTEMPLATE_NAMESPACE_BEGIN
 
-Template::Template()
-    : block_(new Block())
-{}
+Template::Template(const String& filename)
+    : block_(nullptr)
+{
+    try
+    {
+        String content;
+        std::ifstream fin(filename.c_str());
+
+        if (!fin)
+        {
+            throw std::runtime_error
+            (
+                (
+                    format
+                    (
+                        "The template file '%s' is not readable."
+                    )
+                    % filename
+                ).str()
+            );
+        }
+
+        char c;
+        while (fin.read(&c, 1))
+        {
+            content += c;
+        }
+
+        Tokenizer tokenizer;
+        auto tokens = tokenizer.tokenize(content);
+
+        Parser parser;
+        block_.reset(parser.parse(tokens));
+    }
+    catch (const std::exception& e)
+    {
+        throw std::runtime_error
+        (
+            (
+                format
+                (
+                    "An error occurred when loading the template. %s"
+                )
+                % e.what()
+            ).str()
+        );
+    }
+}
 
 Template::~Template()
 {

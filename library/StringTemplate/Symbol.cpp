@@ -13,7 +13,7 @@ void Symbol::render(std::ostream& os)
 {
     if (!parent_->has(name_))
     {
-        os << "@print " << name_ << ";";
+        os << "{{" << name_ << "}}";
     }
     else
     {

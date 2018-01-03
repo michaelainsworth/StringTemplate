@@ -43,6 +43,8 @@ public:
     void enable();
     void disable();
 
+    String name() const;
+
 private:
 
     Block* parent_;
