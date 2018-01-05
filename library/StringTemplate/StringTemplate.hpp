@@ -5,6 +5,7 @@
 #include <StringTemplate/Block.hpp>
 #include <StringTemplate/BlockReference.hpp>
 #include <StringTemplate/Common.hpp>
+#include <StringTemplate/html.hpp>
 #include <StringTemplate/Node.hpp>
 #include <StringTemplate/Parser.hpp>
 #include <StringTemplate/String.hpp>

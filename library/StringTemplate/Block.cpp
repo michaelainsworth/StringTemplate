@@ -1,6 +1,7 @@
 #include <boost/format.hpp>
 #include <iostream>
 #include <StringTemplate/Block.hpp>
+#include <StringTemplate/html.hpp>
 #include <StringTemplate/Symbol.hpp>
 #include <StringTemplate/Text.hpp>
 
@@ -148,7 +149,7 @@ void Block::set(const String& name, const String& value)
         dict_.erase(it);
     }
 
-    dict_.insert(std::make_pair(name, value));
+    dict_.insert(std::make_pair(name, html(value)));
 }
 
 bool Block::has(const String& name) const
