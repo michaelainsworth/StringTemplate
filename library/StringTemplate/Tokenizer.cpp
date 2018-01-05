@@ -136,6 +136,12 @@ TokenVector Tokenizer::tokenize(const String& content)
             ++i;
         }
 
+        if (current.size())
+        {
+            tokens.push_back(Token(TextType, current));
+            current.clear();
+        }
+
         return tokens;
     }
     catch (const std::exception& e)
