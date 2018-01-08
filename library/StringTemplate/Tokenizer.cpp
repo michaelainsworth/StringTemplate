@@ -42,22 +42,35 @@ TokenVector Tokenizer::tokenize(const String& content)
             {
                 c = content[i];
 
-                if ('}' == c && i < s - 1 && '}' == content[i + 1])
+                if ('}' == c)
                 {
                     found = true;
-                    ++i;
 
+                    // Skip the final newline if {#block} or {/block}, etc.
                     if (type != SymbolType && i < s - 1 && ('\r' == content[i + 1] || '\n' ==
-                                content[i + 1]))
+                                                            content[i + 1]))
                     {
                         ++i;
                     }
 
                     break;
                 }
-                else
+                else if (isIdentifier(c))
                 {
                     current += c;
+                }
+                else
+                {
+                    throw std::runtime_error
+                    (
+                        (
+                            format
+                            (
+                                "An unknown character was encountered at offset %i."
+                            )
+                            % (i + 1)
+                        ).str()
+                    );
                 }
 
                 ++i;
@@ -68,15 +81,15 @@ TokenVector Tokenizer::tokenize(const String& content)
                 String error;
                 if (OpenBlockType == type)
                 {
-                    error = "An opening {{#block}} was unterminated.";
+                    error = "An opening {#block} was unterminated.";
                 }
                 else if (CloseBlockType == type)
                 {
-                    error = "A closing {{/block}} was unterminated.";
+                    error = "A closing {/block} was unterminated.";
                 }
                 else
                 {
-                    error = "A {{symbol}} was untermindated.";
+                    error = "A {symbol} was untermindated.";
                 }
 
                 throw std::runtime_error(error);
@@ -95,18 +108,18 @@ TokenVector Tokenizer::tokenize(const String& content)
             {
                 if ('{' == c)
                 {
-                    // {{#
-                    if (i < s - 2 && content[1 + i] == '{' && content[2 + i] == '#')
+                    // {#
+                    if (i < s - 1 && content[1 + i] == '#')
                     {
-                        addTextIfNotEmpty(2, 1);
+                        addTextIfNotEmpty(1, 1);
                     }
-                    // {{/
-                    else if (i < s - 2 && content[1 + i] == '{' && content[2 + i] == '/')
+                    // {/
+                    else if (i < s - 1 && content[1 + i] == '/')
                     {
-                        addTextIfNotEmpty(2, 2);
+                        addTextIfNotEmpty(1, 2);
                     }
-                    // {{a
-                    else if (i < s - 2 && content[1 + i] == '{')
+                    // {$
+                    else if (i < s - 1 && content[1 + i] == '$')
                     {
                         addTextIfNotEmpty(1, 3);
                     }
@@ -159,6 +172,13 @@ TokenVector Tokenizer::tokenize(const String& content)
     }
 }
 
+bool Tokenizer::isIdentifier(char c)
+{
+    return ('_' == c)             ||
+           (c >= '0' && c <= '9') ||
+           (c >= 'a' && c <= 'z') ||
+           (c >= 'A' && c <= 'Z');
+}
 
 STRINGTEMPLATE_NAMESPACE_END
 

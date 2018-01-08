@@ -15,6 +15,8 @@ public:
 
     TokenVector tokenize(const String& content);
 
+    static bool isIdentifier(char c);
+
 };
 
 STRINGTEMPLATE_NAMESPACE_END
