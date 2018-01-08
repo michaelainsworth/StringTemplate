@@ -4,10 +4,12 @@
 
 #include <string>
 #include <StringTemplate/Common.hpp>
+#include <vector>
 
 STRINGTEMPLATE_NAMESPACE_BEGIN
 
 typedef std::string String;
+typedef std::vector<String> StringVector;
 
 STRINGTEMPLATE_NAMESPACE_END
 

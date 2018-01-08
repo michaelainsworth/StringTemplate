@@ -20,15 +20,21 @@ String Token::description() const
     if (OpenBlockType == type_) t = "OpenBlock";
     if (CloseBlockType == type_) t = "CloseBlock";
     if (SymbolType == type_) t = "Symbol";
+    if (IncludeType == type_) t = "Include";
+    if (StringType == type_) t = "String";
 
     t += ": ";
-    if (SymbolType == type_)
+    if (TextType == type_ || StringType == type_)
     {
         for (auto c : value_)
         {
-            if (std::isprint(c))
+            if (isTextLike(c))
             {
                 t += c;
+            }
+            else
+            {
+                t += ' ';
             }
         }
     }
@@ -43,6 +49,46 @@ String Token::description() const
 String Token::value() const
 {
     return value_;
+}
+
+bool Token::isTextLike(char c)
+{
+    return ('~' == c)             ||
+           ('`' == c)             ||
+           ('!' == c)             ||
+           ('@' == c)             ||
+           ('#' == c)             ||
+           ('$' == c)             ||
+           ('%' == c)             ||
+           ('^' == c)             ||
+           ('&' == c)             ||
+           ('*' == c)             ||
+           ('(' == c)             ||
+           (')' == c)             ||
+           ('_' == c)             ||
+           ('-' == c)             ||
+           ('+' == c)             ||
+           ('=' == c)             ||
+           ('[' == c)             ||
+           ('{' == c)             ||
+           (']' == c)             ||
+           ('}' == c)             ||
+           ('\\' == c)            ||
+           ('|' == c)             ||
+           (';' == c)             ||
+           (':' == c)             ||
+           ('\'' == c)            ||
+           ('"' == c)             ||
+           ('<' == c)             ||
+           (',' == c)             ||
+           ('>' == c)             ||
+           ('.' == c)             ||
+           ('/' == c)             ||
+           ('?' == c)             ||
+           (' ' == c)             ||
+           (c >= '0' && c <= '9') ||
+           (c >= 'a' && c <= 'z') ||
+           (c >= 'A' && c <= 'Z');
 }
 
 STRINGTEMPLATE_NAMESPACE_END

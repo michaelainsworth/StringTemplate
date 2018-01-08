@@ -12,7 +12,9 @@ enum TokenType
     TextType,
     SymbolType,
     OpenBlockType,
-    CloseBlockType
+    CloseBlockType,
+    IncludeType,
+    StringType
 };
 
 class Token
@@ -26,6 +28,8 @@ public:
     String value() const;
     
 private:
+
+    static bool isTextLike(char c);
 
     TokenType type_;
     String value_;

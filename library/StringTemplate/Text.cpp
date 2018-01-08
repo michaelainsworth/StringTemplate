@@ -7,7 +7,7 @@ Text::Text(const String& value)
     : value_(value)
 {}
 
-void Text::render(std::ostream& os)
+void Text::render(std::ostream& os, bool empty)
 {
     os.write(value_.c_str(), value_.size());
 }

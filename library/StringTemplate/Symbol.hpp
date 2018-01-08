@@ -14,7 +14,7 @@ public:
     Symbol(Block& parent, const String& name);
     virtual Node* clone() const;
     virtual void reparent(Block* parent);
-    virtual void render(std::ostream& os);
+    virtual void render(std::ostream& os, bool empty);
 
 private:
 

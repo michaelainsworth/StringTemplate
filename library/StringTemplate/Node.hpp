@@ -15,7 +15,7 @@ public:
     virtual ~Node() = 0;
     virtual Node* clone() const = 0;
     virtual void reparent(Block* parent) = 0;
-    virtual void render(std::ostream& os) = 0;
+    virtual void render(std::ostream& os, bool empty) = 0;
 
 };
 

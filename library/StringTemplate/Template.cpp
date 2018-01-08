@@ -1,7 +1,9 @@
 #include <boost/format.hpp>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <StringTemplate/Block.hpp>
+#include <StringTemplate/File.hpp>
 #include <StringTemplate/Parser.hpp>
 #include <StringTemplate/Template.hpp>
 
@@ -14,34 +16,9 @@ Template::Template(const String& filename)
 {
     try
     {
-        String content;
-        std::ifstream fin(filename.c_str());
-
-        if (!fin)
-        {
-            throw std::runtime_error
-            (
-                (
-                    format
-                    (
-                        "The template file '%s' is not readable."
-                    )
-                    % filename
-                ).str()
-            );
-        }
-
-        char c;
-        while (fin.read(&c, 1))
-        {
-            content += c;
-        }
-
-        Tokenizer tokenizer;
-        auto tokens = tokenizer.tokenize(content);
-
-        Parser parser;
-        block_.reset(parser.parse(tokens));
+        auto content = getFileContents(filename);
+        std::istringstream buffer(content);
+        parse(buffer);
     }
     catch (const std::exception& e)
     {
@@ -50,7 +27,30 @@ Template::Template(const String& filename)
             (
                 format
                 (
-                    "An error occurred when loading the template. %s"
+                    "Error in '%s': %s"
+                )
+                % filename
+                % e.what()
+            ).str()
+        );
+    }
+}
+
+Template::Template(std::istream& buffer)
+    : block_(nullptr)
+{
+    try
+    {
+        parse(buffer);
+    }
+    catch (const std::exception& e)
+    {
+        throw std::runtime_error
+        (
+            (
+                format
+                (
+                    "Error in buffer: %s"
                 )
                 % e.what()
             ).str()
@@ -64,7 +64,7 @@ Template::~Template()
 
 void Template::render(std::ostream& os)
 {
-    block_->render(os);
+    block_->render(os, false);
 }
 
 void Template::addText(const String& value)
@@ -104,6 +104,21 @@ String Template::get(const String& name) const
     return block_->get(name);
 }
 
+void Template::parse(std::istream& ins)
+{
+    String content;
+    char c;
+    while (ins.get(c))
+    {
+        content += c;
+    }
+
+    Tokenizer tokenizer;
+    auto tokens = tokenizer.tokenize(content);
+
+    Parser parser;
+    block_.reset(parser.parse(tokens));
+}
 
 STRINGTEMPLATE_NAMESPACE_END
 

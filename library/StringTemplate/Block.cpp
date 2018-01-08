@@ -34,14 +34,33 @@ Block::~Block()
     children_.clear();
 }
 
-void Block::render(std::ostream& os)
+void Block::render(std::ostream& os, bool empty)
 {
-    if (enabled_)
+    if (!empty)
     {
+        if (enabled_)
+        {
+            auto it = children_.begin(), end = children_.end();
+            for (; it != end; ++it)
+            {
+                (*it)->render(os, empty);
+            }
+        }
+    }
+    else
+    {
+        if (name_.size())
+        {
+            os << "{#" << name_ << "}";
+        }
         auto it = children_.begin(), end = children_.end();
         for (; it != end; ++it)
         {
-            (*it)->render(os);
+            (*it)->render(os, empty);
+        }
+        if (name_.size())
+        {
+            os << "{/" << name_ << "}";
         }
     }
 }

@@ -14,7 +14,10 @@ class Template
 {
 public:
 
+    friend class Parser;
+
     Template(const String& filename);
+    Template(std::istream& buffer);
     ~Template();
 
     void render(std::ostream& os);
@@ -29,6 +32,8 @@ public:
     String get(const String& name) const;
 
 private:
+
+    void parse(std::istream& ins);
 
     std::shared_ptr<Block> block_;
 

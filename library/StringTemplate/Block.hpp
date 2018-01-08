@@ -20,6 +20,7 @@ private:
 public:
 
     friend class BlockReference;
+    friend class Parser;
 
     Block();
     virtual Node* clone() const;
@@ -29,7 +30,7 @@ public:
 
     Block& duplicate();
 
-    void render(std::ostream& os);
+    void render(std::ostream& os, bool empty);
 
     void addText(const String& value);
     void addSymbol(const String& name);

@@ -12,7 +12,7 @@ class Text : public Node
 public:
 
     Text(const String& value);
-    virtual void render(std::ostream& os);
+    virtual void render(std::ostream& os, bool empty);
     virtual void reparent(Block* parent);
     virtual Node* clone() const;
 
