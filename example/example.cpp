@@ -25,7 +25,7 @@ int main(int argc, const char**argv)
         //in_ca.disable();
         in_ca.set("taxed_value", "$400");
 
-        tpl.render(std::cout);
+        tpl.render(cout, true);
 
         return 0;
     }

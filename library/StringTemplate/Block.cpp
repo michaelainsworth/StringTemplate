@@ -36,7 +36,7 @@ Block::~Block()
 
 void Block::render(std::ostream& os, bool empty)
 {
-    if (!empty)
+    if (empty)
     {
         if (enabled_)
         {

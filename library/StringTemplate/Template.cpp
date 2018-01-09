@@ -62,9 +62,9 @@ Template::~Template()
 {
 }
 
-void Template::render(std::ostream& os)
+void Template::render(std::ostream& os, bool empty)
 {
-    block_->render(os, false);
+    block_->render(os, empty);
 }
 
 void Template::addText(const String& value)

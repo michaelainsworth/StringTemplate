@@ -4,6 +4,7 @@
 
 #include <vector>
 
+#define STRINGTEMPLATE_VERSION         "1.0"
 #define STRINGTEMPLATE_NAMESPACE       StringTemplate
 #define STRINGTEMPLATE_NAMESPACE_BEGIN namespace STRINGTEMPLATE_NAMESPACE {
 #define STRINGTEMPLATE_NAMESPACE_END   }
