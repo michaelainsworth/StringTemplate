@@ -20,7 +20,7 @@ public:
     Template(std::istream& buffer);
     ~Template();
 
-    void render(std::ostream& os, bool empty);
+    void render(std::ostream& os, bool empty = true);
 
     void addText(const String& value);
     void addSymbol(const String& name);
