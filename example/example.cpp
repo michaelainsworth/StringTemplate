@@ -22,7 +22,7 @@ int main(int argc, const char**argv)
         tpl.set("name", "John Doe");
         tpl.set("value", "$1,000");
         auto in_ca = tpl.block("in_ca");
-        //in_ca.disable();
+        //in_ca.hide();
         in_ca.set("taxed_value", "$400");
 
         tpl.render(cout, true);

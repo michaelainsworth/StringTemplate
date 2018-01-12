@@ -80,21 +80,21 @@ String BlockReference::get(const String& name)
     return "";
 }
 
-BlockReference BlockReference::enable()
+BlockReference BlockReference::show()
 {
     if (block_)
     {
-        block_->enable();
+        block_->show();
     }
 
     return *this;
 }
 
-BlockReference BlockReference::disable()
+BlockReference BlockReference::hide()
 {
     if (block_)
     {
-        block_->disable();
+        block_->hide();
     }
 
     return *this;

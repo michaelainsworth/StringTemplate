@@ -12,7 +12,7 @@ STRINGTEMPLATE_NAMESPACE_BEGIN
 Block::Block()
     : parent_(nullptr)
     , name_()
-    , enabled_(true)
+    , show_(true)
     , dict_()
     , children_()
 {}
@@ -20,7 +20,7 @@ Block::Block()
 Block::Block(Block& parent, const String& name)
     : parent_(&parent)
     , name_(name)
-    , enabled_(true)
+    , show_(true)
     , dict_()
     , children_()
 {}
@@ -38,7 +38,7 @@ void Block::render(std::ostream& os, bool empty)
 {
     if (empty)
     {
-        if (enabled_)
+        if (show_)
         {
             auto it = children_.begin(), end = children_.end();
             for (; it != end; ++it)
@@ -70,7 +70,7 @@ Node* Block::clone() const
     Block* that = new Block();
     that->parent_ = parent_;
     that->name_ = name_;
-    that->enabled_ = enabled_;
+    that->show_ = show_;
     that->dict_ = dict_;
     auto it = children_.begin(), end = children_.end();
     for (; it != end; ++it)
@@ -196,14 +196,14 @@ String Block::get(const String& name) const
     return it->second;
 }
 
-void Block::enable()
+void Block::show()
 {
-    enabled_ = true;
+    show_ = true;
 }
 
-void Block::disable()
+void Block::hide()
 {
-    enabled_ = false;
+    show_ = false;
 }
 
 String Block::name() const

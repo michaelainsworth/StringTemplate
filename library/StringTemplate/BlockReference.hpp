@@ -22,8 +22,8 @@ public:
     bool has(const String& name);
     String get(const String& name);
 
-    BlockReference enable();
-    BlockReference disable();
+    BlockReference show();
+    BlockReference hide();
 
     BlockReference repeat(unsigned count);
     BlockReference next();

@@ -41,8 +41,8 @@ public:
     bool has(const String& name) const;
     String get(const String& name) const;
 
-    void enable();
-    void disable();
+    void show();
+    void hide();
 
     String name() const;
 
@@ -50,7 +50,7 @@ private:
 
     Block* parent_;
     String name_;
-    bool enabled_;
+    bool show_;
     Dictionary dict_;
     NodePointerVector children_;
 
