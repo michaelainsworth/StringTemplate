@@ -115,9 +115,16 @@ BlockReference BlockReference::repeat(unsigned count)
 {
     if (block_)
     {
-        for (unsigned i = 1; i < count; ++i)
+        if (!count)
         {
-            duplicate();
+            hide();
+        }
+        else
+        {
+            for (unsigned i = 1; i < count; ++i)
+            {
+                duplicate();
+            }
         }
     }
 
