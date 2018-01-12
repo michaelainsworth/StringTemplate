@@ -2,6 +2,7 @@
 #ifndef STRINGTEMPLATE_BLOCKREFERENCE_HPP
 #define STRINGTEMPLATE_BLOCKREFERENCE_HPP
 
+#include <boost/lexical_cast.hpp>
 #include <StringTemplate/Common.hpp>
 #include <StringTemplate/String.hpp>
 
@@ -19,6 +20,10 @@ public:
     BlockReference block(const String& name);
 
     BlockReference set(const String& name, const String& value);
+    BlockReference set(const String& name, const char* value);
+    template<typename T>
+    BlockReference set(const String& name, const T& value);
+
     bool has(const String& name);
     String get(const String& name);
 
@@ -37,6 +42,12 @@ private:
     Block *block_;
 
 };
+
+template<typename T>
+inline BlockReference BlockReference::set(const String& name, const T& value)
+{
+    return set(name, boost::lexical_cast<String>(value));
+}
 
 STRINGTEMPLATE_NAMESPACE_END
 

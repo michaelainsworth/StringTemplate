@@ -89,9 +89,15 @@ BlockReference Template::block(const String& name)
     return BlockReference(child);
 }
 
-void Template::set(const String& name, const String& value)
+Template& Template::set(const String& name, const String& value)
 {
     block_->set(name, value);
+    return *this;
+}
+
+Template& Template::set(const String& name, const char* value)
+{
+    return set(name, String(value ? value : ""));
 }
 
 bool Template::has(const String& name) const

@@ -60,6 +60,16 @@ BlockReference BlockReference::set(const String& name, const String& value)
     return *this;
 }
 
+BlockReference BlockReference::set(const String& name, const char* value)
+{
+    if (block_)
+    {
+        block_->set(name, String(value ? value : ""));
+    }
+
+    return *this;
+}
+
 bool BlockReference::has(const String& name)
 {
     if (block_)
