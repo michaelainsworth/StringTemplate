@@ -8,20 +8,24 @@ BlockReference::BlockReference(Block* block)
     : block_(block)
 {}
 
-void BlockReference::addText(const String& value)
+BlockReference BlockReference::addText(const String& value)
 {
     if (block_)
     {
         block_->addText(value);
     }
+
+    return *this;
 }
 
-void BlockReference::addSymbol(const String& name)
+BlockReference BlockReference::addSymbol(const String& name)
 {
     if (block_)
     {
         block_->addSymbol(name);
     }
+
+    return *this;
 }
 
 BlockReference BlockReference::addBlock(const String& name)
@@ -46,12 +50,14 @@ BlockReference BlockReference::block(const String& name)
     return BlockReference(nullptr);
 }
 
-void BlockReference::set(const String& name, const String& value)
+BlockReference BlockReference::set(const String& name, const String& value)
 {
     if (block_)
     {
         block_->set(name, value);
     }
+
+    return *this;
 }
 
 bool BlockReference::has(const String& name)
@@ -74,20 +80,24 @@ String BlockReference::get(const String& name)
     return "";
 }
 
-void BlockReference::enable()
+BlockReference BlockReference::enable()
 {
     if (block_)
     {
         block_->enable();
     }
+
+    return *this;
 }
 
-void BlockReference::disable()
+BlockReference BlockReference::disable()
 {
     if (block_)
     {
         block_->disable();
     }
+
+    return *this;
 }
 
 BlockReference BlockReference::duplicate()

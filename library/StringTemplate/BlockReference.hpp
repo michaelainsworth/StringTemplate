@@ -13,17 +13,17 @@ public:
 
     friend class Template;
 
-    void addText(const String& value);
-    void addSymbol(const String& name);
+    BlockReference addText(const String& value);
+    BlockReference addSymbol(const String& name);
     BlockReference addBlock(const String& name);
     BlockReference block(const String& name);
 
-    void set(const String& name, const String& value);
+    BlockReference set(const String& name, const String& value);
     bool has(const String& name);
     String get(const String& name);
 
-    void enable();
-    void disable();
+    BlockReference enable();
+    BlockReference disable();
 
     BlockReference repeat(unsigned count);
     BlockReference next();
