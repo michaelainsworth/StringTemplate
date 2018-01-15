@@ -1,11 +1,16 @@
 #include <StringTemplate/BlockReference.hpp>
 #include <algorithm>
 #include <StringTemplate/Block.hpp>
+#include <StringTemplate/Template.hpp>
 
 STRINGTEMPLATE_NAMESPACE_BEGIN
 
 BlockReference::BlockReference(Block* block)
     : block_(block)
+{}
+
+BlockReference::BlockReference(Template& tpl)
+    : block_(tpl.block_.get())
 {}
 
 BlockReference BlockReference::addText(const String& value)

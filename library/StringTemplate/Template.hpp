@@ -15,6 +15,7 @@ class Template
 {
 public:
 
+    friend class BlockReference;
     friend class Parser;
 
     Template(const String& filename);

@@ -8,11 +8,15 @@
 
 STRINGTEMPLATE_NAMESPACE_BEGIN
 
+class Template;
+
 class BlockReference
 {
 public:
 
     friend class Template;
+
+    BlockReference(Template& tpl);
 
     BlockReference addText(const String& value);
     BlockReference addSymbol(const String& name);
