@@ -41,6 +41,9 @@ public:
     bool has(const String& name) const;
     String get(const String& name) const;
 
+    void show(const String& block);
+    void hide(const String& block);
+
     void show();
     void hide();
 

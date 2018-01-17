@@ -22,6 +22,9 @@ public:
     Template(std::istream& buffer);
     ~Template();
 
+    Template& show(const String& block);
+    Template& hide(const String& block);
+
     void render(std::ostream& os, bool empty = true);
 
     void addText(const String& value);

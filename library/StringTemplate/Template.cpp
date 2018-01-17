@@ -126,5 +126,17 @@ void Template::parse(std::istream& ins)
     block_.reset(parser.parse(tokens));
 }
 
+Template& Template::show(const String& block)
+{
+    this->block(block).show();
+    return *this;
+}
+
+Template& Template::hide(const String& block)
+{
+    this->block(block).hide();
+    return *this;
+}
+
 STRINGTEMPLATE_NAMESPACE_END
 

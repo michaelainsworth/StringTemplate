@@ -31,6 +31,8 @@ public:
     bool has(const String& name);
     String get(const String& name);
 
+    BlockReference show(const String& block);
+    BlockReference hide(const String& block);
     BlockReference show();
     BlockReference hide();
 

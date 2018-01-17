@@ -95,6 +95,19 @@ String BlockReference::get(const String& name)
     return "";
 }
 
+BlockReference BlockReference::show(const String& block)
+{
+    this->block(block).show();
+    return *this;
+}
+
+BlockReference BlockReference::hide(const String& block)
+{
+    this->block(block).hide();
+    return *this;
+}
+
+
 BlockReference BlockReference::show()
 {
     if (block_)

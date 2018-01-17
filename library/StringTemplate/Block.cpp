@@ -196,6 +196,25 @@ String Block::get(const String& name) const
     return it->second;
 }
 
+void Block::show(const String& block)
+{
+    auto b = this->block(block);
+    if (b)
+    {
+        b->show();
+    }
+}
+
+void Block::hide(const String& block)
+{
+    auto b = this->block(block);
+    if (b)
+    {
+        b->hide();
+    }
+}
+
+
 void Block::show()
 {
     show_ = true;
