@@ -18,3 +18,7 @@ file(GLOB_RECURSE stpl_headers stpl/*.hpp)
 file(GLOB_RECURSE stpl_sources stpl/*.cpp)
 add_executable(stpl ${stpl_sources} ${stpl_headers})
 target_link_libraries(stpl stringtemplate)
+
+install(TARGETS stringtemplate DESTINATION /usr/local/lib)
+install(TARGETS stpl DESTINATION /usr/local/bin)
+install(FILES ${library_headers} DESTINATION /usr/local/include/StringTemplate)
